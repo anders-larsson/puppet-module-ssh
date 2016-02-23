@@ -18,7 +18,6 @@ describe 'ssh' do
     :sshrsakey => 'AAAAB3NzaC1yc2EAAAABIwAAAQEArGElx46pD6NNnlxVaTbp0ZJMgBKCmbTCT3RaeCk0ZUJtQ8wkcwTtqIXmmiuFsynUT0DFSd8UIodnBOPqitimmooAVAiAi30TtJVzADfPScMiUnBJKZajIBkEMkwUcqsfh630jyBvLPE/kyQcxbEeGtbu1DG3monkeymanOBW1AKc5o+cJLXcInLnbowMG7NXzujT3BRYn/9s5vtT1V9cuZJs4XLRXQ50NluxJI7sVfRPVvQI9EMbTS4AFBXUej3yfgaLSV+nPZC/lmJ2gR4t/tKvMFF9m16f8IcZKK7o0rK7v81G/tREbOT5YhcKLK+0wBfR6RsmHzwy4EddZloyLQ=='
   }
 
-
   osfamily_matrix = {
     'Debian-7' => {
       :architecture           => 'x86_64',
@@ -1320,11 +1319,13 @@ describe 'ssh' do
 
     ['true',true].each do |value|
       context "as #{value} with hiera data getting collected" do
-        let :facts do
-          {
-            :fqdn              => 'hieramerge.example.com',
-            :lsbmajdistrelease => '6',
-          }.merge(default_facts)
+        let:facts do
+          default_facts.merge(
+            {
+              :fqdn              => 'hieramerge.example.com',
+              :lsbmajdistrelease => '6',
+            }
+          )
         end
         let(:params) { { :hiera_merge => value } }
 
@@ -1341,12 +1342,14 @@ describe 'ssh' do
     end
 
     context "as true with with hiera data getting merged through levels" do
-      let :facts do
-        {
-          :fqdn              => 'hieramerge.example.com',
-          :lsbmajdistrelease => '6',
-          :specific          => 'test_hiera_merge',
-        }.merge(default_facts)
+      let:facts do
+        default_facts.merge(
+          {
+            :fqdn              => 'hieramerge.example.com',
+            :lsbmajdistrelease => '6',
+            :specific          => 'test_hiera_merge',
+          }
+        )
       end
       let(:params) { { :hiera_merge => true } }
 
