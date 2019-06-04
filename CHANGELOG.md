@@ -1,3 +1,6 @@
+### v3.62.0 - 2019-06-04
+  * Support options 'local' and 'remote' for AllowTcpForwarding
+
 ### v3.61.0 - 2019-05-01
   * Support Debian 8
   * Support Ubuntu 18.04 LTS
